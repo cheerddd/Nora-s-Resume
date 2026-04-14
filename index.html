@@ -1,0 +1,569 @@
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nora Dong · 董宁</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,400;1,500&family=Outfit:wght@300;400;500;600&family=Noto+Serif+SC:wght@300;400&display=swap" rel="stylesheet">
+<style>
+:root {
+  --white: #ffffff;
+  --bg: #f7f6f2;
+  --bg2: #efeee9;
+  --surface: #ffffff;
+  --border: rgba(0,0,0,0.07);
+  --text: #1a1814;
+  --text2: #4a4640;
+  --muted: #9a9590;
+  --indigo: #4a5cf0;
+  --indigo-light: #eef0fe;
+  --rose: #e8547a;
+  --rose-light: #fef0f3;
+  --amber: #d4872a;
+  --amber-light: #fef6ec;
+  --sage: #4a9b7a;
+  --sage-light: #edf7f3;
+  --shadow-sm: 0 2px 12px rgba(0,0,0,0.06);
+  --shadow-md: 0 8px 40px rgba(0,0,0,0.09);
+  --shadow-lg: 0 24px 80px rgba(0,0,0,0.12);
+  --radius: 20px;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { background: var(--bg); color: var(--text); font-family: 'Outfit', sans-serif; font-weight: 300; overflow-x: hidden; cursor: none; }
+ 
+.cursor { width: 9px; height: 9px; background: var(--indigo); border-radius: 50%; position: fixed; top: 0; left: 0; pointer-events: none; z-index: 9999; }
+.cursor-ring { width: 34px; height: 34px; border: 1.5px solid rgba(74,92,240,0.35); border-radius: 50%; position: fixed; top: 0; left: 0; pointer-events: none; z-index: 9998; transition: width .25s, height .25s, border-color .25s; }
+ 
+nav { position: fixed; top: 0; left: 0; right: 0; z-index: 200; padding: 22px 64px; display: flex; justify-content: space-between; align-items: center; transition: background .4s, box-shadow .4s; }
+nav.scrolled { background: rgba(247,246,242,0.92); backdrop-filter: blur(16px); box-shadow: 0 1px 0 var(--border); }
+.nav-logo { font-family: 'Playfair Display', serif; font-size: 20px; font-weight: 500; color: var(--text); text-decoration: none; letter-spacing: .04em; }
+.nav-links { display: flex; gap: 36px; list-style: none; }
+.nav-links a { color: var(--muted); text-decoration: none; font-size: 12px; letter-spacing: .14em; text-transform: uppercase; font-weight: 400; transition: color .3s; }
+.nav-links a:hover, .nav-links a.active { color: var(--indigo); }
+ 
+/* HERO */
+.hero { min-height: 100vh; display: grid; grid-template-columns: 1fr 1fr; align-items: center; padding: 120px 64px 80px; gap: 60px; position: relative; overflow: hidden; }
+.hero::before { content: ''; position: absolute; width: 600px; height: 600px; background: radial-gradient(circle, rgba(74,92,240,0.08) 0%, transparent 70%); top: -100px; right: -100px; border-radius: 50%; pointer-events: none; }
+.hero::after { content: ''; position: absolute; width: 380px; height: 380px; background: radial-gradient(circle, rgba(232,84,122,0.06) 0%, transparent 70%); bottom: 0; left: 35%; border-radius: 50%; pointer-events: none; }
+ 
+.hero-left { position: relative; z-index: 2; }
+.hero-badge { display: inline-flex; align-items: center; gap: 8px; padding: 6px 16px; background: var(--indigo-light); border-radius: 100px; font-size: 11px; font-weight: 500; letter-spacing: .14em; text-transform: uppercase; color: var(--indigo); margin-bottom: 32px; opacity: 0; animation: fadeUp .7s .2s forwards; }
+.badge-dot { width: 6px; height: 6px; background: var(--indigo); border-radius: 50%; animation: pulse 2s infinite; }
+.hero-name { font-family: 'Playfair Display', serif; font-size: clamp(52px,6vw,88px); font-weight: 500; line-height: 1.0; color: var(--text); opacity: 0; animation: fadeUp .8s .35s forwards; }
+.hero-name em { font-style: italic; color: var(--indigo); }
+.hero-cn { font-family: 'Noto Serif SC', serif; font-size: 20px; font-weight: 300; letter-spacing: .55em; color: var(--muted); margin-top: 16px; opacity: 0; animation: fadeUp .8s .5s forwards; }
+.hero-desc { margin-top: 32px; font-size: 16px; line-height: 1.85; color: var(--text2); max-width: 480px; opacity: 0; animation: fadeUp .8s .65s forwards; }
+.hero-stats { display: flex; gap: 40px; margin-top: 48px; opacity: 0; animation: fadeUp .8s .8s forwards; }
+.stat-num { font-family: 'Playfair Display', serif; font-size: 38px; font-weight: 500; color: var(--indigo); line-height: 1; }
+.stat-num sup { font-size: 18px; }
+.stat-label { font-size: 12px; color: var(--muted); letter-spacing: .06em; margin-top: 4px; }
+ 
+.hero-right { position: relative; z-index: 2; opacity: 0; animation: fadeIn 1s .9s forwards; }
+.id-panel { background: var(--white); border-radius: 28px; padding: 48px; box-shadow: var(--shadow-lg); position: relative; overflow: hidden; }
+.id-panel::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px; background: linear-gradient(90deg, var(--indigo), var(--rose), var(--amber)); }
+.id-label { font-size: 11px; letter-spacing: .2em; text-transform: uppercase; color: var(--muted); margin-bottom: 24px; }
+.id-chips { display: flex; flex-wrap: wrap; gap: 10px; }
+.id-chip { display: flex; align-items: center; gap: 8px; padding: 10px 18px; background: var(--bg); border-radius: 100px; font-size: 13px; color: var(--text2); transition: all .3s; }
+.id-chip:hover { background: var(--indigo-light); color: var(--indigo); transform: translateY(-2px); box-shadow: var(--shadow-sm); }
+.id-divider { height: 1px; background: var(--border); margin: 28px 0; }
+.id-quote { font-family: 'Playfair Display', serif; font-style: italic; font-size: 15px; line-height: 1.75; color: var(--text2); border-left: 3px solid var(--indigo); padding-left: 20px; }
+ 
+/* SECTIONS */
+section { padding: 100px 64px; max-width: 1240px; margin: 0 auto; }
+.bg-white { background: var(--white); padding: 100px 0; }
+.bg-inner { max-width: 1240px; margin: 0 auto; padding: 0 64px; }
+.eyebrow { display: flex; align-items: center; gap: 12px; font-size: 11px; letter-spacing: .25em; text-transform: uppercase; color: var(--indigo); font-weight: 500; margin-bottom: 14px; }
+.eyebrow-line { width: 32px; height: 2px; background: var(--indigo); border-radius: 2px; }
+.section-title { font-family: 'Playfair Display', serif; font-size: clamp(32px,4vw,52px); font-weight: 500; line-height: 1.15; margin-bottom: 52px; color: var(--text); }
+ 
+/* ACHIEVE */
+.achieve-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 24px; }
+.achieve-card { background: var(--white); border: 1px solid var(--border); border-radius: var(--radius); padding: 36px 32px; position: relative; overflow: hidden; transition: transform .35s, box-shadow .35s; }
+.achieve-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-md); }
+.ac-top { position: absolute; top: 0; left: 0; right: 0; height: 3px; }
+.ac-i { background: var(--indigo); } .ac-r { background: var(--rose); } .ac-a { background: var(--amber); }
+.ac-tag { display: inline-block; padding: 4px 12px; border-radius: 100px; font-size: 11px; font-weight: 500; letter-spacing: .08em; margin-bottom: 20px; }
+.t-i { background: var(--indigo-light); color: var(--indigo); }
+.t-r { background: var(--rose-light); color: var(--rose); }
+.t-a { background: var(--amber-light); color: var(--amber); }
+.t-s { background: var(--sage-light); color: var(--sage); }
+.ac-num { font-family: 'Playfair Display', serif; font-size: 52px; font-weight: 500; line-height: 1; color: var(--text); margin-bottom: 8px; }
+.ac-unit { font-size: 18px; color: var(--muted); }
+.ac-label { font-size: 15px; font-weight: 500; color: var(--text); margin-bottom: 10px; }
+.ac-desc { font-size: 13px; line-height: 1.8; color: var(--muted); }
+ 
+/* PROJECTS */
+.proj-list { display: flex; flex-direction: column; gap: 24px; }
+.proj-card { background: var(--white); border: 1px solid var(--border); border-radius: var(--radius); padding: 40px 48px; display: grid; grid-template-columns: 200px 1fr 190px; gap: 48px; align-items: start; transition: transform .35s, box-shadow .35s; }
+.proj-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); }
+.proj-num { font-family: 'Playfair Display', serif; font-size: 52px; font-weight: 500; color: rgba(0,0,0,0.06); line-height: 1; margin-bottom: 16px; }
+.proj-tag { display: inline-flex; align-items: center; padding: 6px 14px; border-radius: 100px; font-size: 12px; font-weight: 500; }
+.proj-title { font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 500; margin-bottom: 14px; color: var(--text); }
+.proj-desc { font-size: 14px; line-height: 1.9; color: var(--text2); margin-bottom: 20px; }
+.proj-pills { display: flex; flex-wrap: wrap; gap: 8px; }
+.proj-pill { padding: 5px 14px; background: var(--bg); border-radius: 100px; font-size: 12px; color: var(--text2); }
+.proj-outcome { text-align: right; }
+.out-label { font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); margin-bottom: 8px; }
+.out-val { font-family: 'Playfair Display', serif; font-size: 26px; font-weight: 500; color: var(--indigo); }
+ 
+/* TRAITS */
+.traits-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 20px; }
+.trait-card { background: var(--white); border: 1px solid var(--border); border-radius: var(--radius); padding: 32px 28px; transition: transform .35s, box-shadow .35s; }
+.trait-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-md); }
+.t-icon { width: 48px; height: 48px; border-radius: 14px; display: flex; align-items: center; justify-content: center; font-size: 22px; margin-bottom: 18px; }
+.ic-i { background: var(--indigo-light); } .ic-r { background: var(--rose-light); } .ic-a { background: var(--amber-light); } .ic-s { background: var(--sage-light); }
+.trait-title { font-size: 15px; font-weight: 600; margin-bottom: 10px; color: var(--text); }
+.trait-desc { font-size: 13px; line-height: 1.85; color: var(--muted); }
+ 
+/* METHODS */
+.method-3 { display: grid; grid-template-columns: repeat(3,1fr); gap: 20px; margin-bottom: 20px; }
+.method-2 { display: grid; grid-template-columns: repeat(2,1fr); gap: 20px; }
+.method-card { background: var(--white); border: 1px solid var(--border); border-radius: var(--radius); padding: 32px 28px; transition: all .35s; }
+.method-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); }
+.m-num { font-family: 'Playfair Display', serif; font-size: 38px; font-weight: 500; color: rgba(74,92,240,0.12); line-height: 1; margin-bottom: 12px; }
+.m-title { font-size: 15px; font-weight: 600; color: var(--text); margin-bottom: 10px; }
+.m-desc { font-size: 13px; line-height: 1.85; color: var(--muted); }
+ 
+/* TIMELINE */
+.timeline { position: relative; padding-left: 28px; }
+.timeline::before { content: ''; position: absolute; left: 0; top: 12px; bottom: 12px; width: 2px; background: linear-gradient(var(--indigo), rgba(74,92,240,.1)); }
+.tl-item { position: relative; margin-bottom: 48px; opacity: 0; transform: translateX(-16px); transition: opacity .6s, transform .6s; }
+.tl-item.visible { opacity: 1; transform: translateX(0); }
+.tl-dot { position: absolute; left: -35px; top: 10px; width: 10px; height: 10px; background: var(--indigo); border: 2px solid var(--white); border-radius: 50%; box-shadow: 0 0 0 3px rgba(74,92,240,.2); }
+.tl-period { font-size: 11px; letter-spacing: .15em; text-transform: uppercase; color: var(--indigo); margin-bottom: 6px; font-weight: 500; }
+.tl-degree { font-family: 'Playfair Display', serif; font-size: 24px; font-weight: 500; margin-bottom: 4px; }
+.tl-school { font-size: 14px; color: var(--muted); margin-bottom: 12px; }
+.tl-desc { font-size: 14px; line-height: 1.85; color: var(--text2); max-width: 580px; }
+ 
+/* PERSONALITY */
+.pers-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-bottom: 40px; }
+.pers-card { background: var(--white); border: 1px solid var(--border); border-radius: var(--radius); padding: 44px; position: relative; overflow: hidden; transition: transform .35s, box-shadow .35s; }
+.pers-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); }
+.pers-bg { position: absolute; right: 20px; top: 10px; font-family: 'Playfair Display', serif; font-size: 100px; font-weight: 700; opacity: .04; line-height: 1; pointer-events: none; user-select: none; }
+.pers-eye { font-size: 11px; letter-spacing: .2em; text-transform: uppercase; color: var(--muted); margin-bottom: 12px; }
+.pers-title { font-family: 'Playfair Display', serif; font-size: 44px; font-weight: 500; line-height: 1; margin-bottom: 6px; }
+.pers-sub { font-family: 'Playfair Display', serif; font-style: italic; font-size: 17px; color: var(--text2); margin-bottom: 20px; }
+.pers-desc { font-size: 14px; line-height: 1.85; color: var(--muted); }
+.char-grid { display: flex; flex-wrap: wrap; gap: 12px; }
+.char-tag { display: flex; align-items: center; gap: 8px; padding: 10px 20px; background: var(--white); border: 1px solid var(--border); border-radius: 100px; font-size: 13px; color: var(--text2); transition: all .3s; }
+.char-tag:hover { border-color: var(--indigo); color: var(--indigo); background: var(--indigo-light); transform: translateY(-2px); box-shadow: var(--shadow-sm); }
+ 
+/* HOBBIES */
+.hobby-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 16px; }
+.hobby-card { background: var(--white); border: 1px solid var(--border); border-radius: var(--radius); padding: 28px 20px; text-align: center; transition: all .35s; }
+.hobby-card:hover { border-color: var(--indigo); transform: translateY(-4px); box-shadow: var(--shadow-sm); }
+.hb-emoji { font-size: 28px; margin-bottom: 10px; }
+.hb-label { font-size: 13px; color: var(--text2); }
+ 
+/* CONTACT */
+.contact-wrap { background: var(--text); border-radius: 32px; padding: 80px; text-align: center; position: relative; overflow: hidden; margin: 0 64px 100px; }
+.contact-wrap::before { content: ''; position: absolute; width: 500px; height: 500px; background: radial-gradient(circle, rgba(74,92,240,.3) 0%, transparent 70%); top: -150px; right: -100px; border-radius: 50%; }
+.contact-wrap::after { content: ''; position: absolute; width: 400px; height: 400px; background: radial-gradient(circle, rgba(232,84,122,.2) 0%, transparent 70%); bottom: -120px; left: -80px; border-radius: 50%; }
+.c-inner { position: relative; z-index: 2; }
+.c-label { font-size: 11px; letter-spacing: .3em; text-transform: uppercase; color: rgba(255,255,255,.4); margin-bottom: 20px; }
+.c-title { font-family: 'Playfair Display', serif; font-size: clamp(36px,5vw,64px); font-weight: 500; font-style: italic; color: var(--white); margin-bottom: 16px; }
+.c-sub { font-size: 15px; color: rgba(255,255,255,.5); margin-bottom: 48px; }
+.c-btn { display: inline-flex; align-items: center; gap: 12px; padding: 16px 40px; background: var(--white); border-radius: 100px; color: var(--text); font-size: 14px; font-weight: 500; letter-spacing: .08em; border: none; cursor: pointer; transition: all .35s; }
+.c-btn:hover { background: var(--indigo); color: var(--white); transform: translateY(-2px); box-shadow: 0 12px 40px rgba(74,92,240,.4); }
+ 
+footer { padding: 32px 64px; display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--border); font-size: 12px; color: var(--muted); letter-spacing: .08em; }
+ 
+/* ANIMATIONS */
+.reveal { opacity: 0; transform: translateY(24px); transition: opacity .7s ease, transform .7s ease; }
+.reveal.visible { opacity: 1; transform: translateY(0); }
+@keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+@keyframes pulse { 0%,100% { opacity:1; transform:scale(1); } 50% { opacity:.5; transform:scale(.8); } }
+ 
+@media (max-width: 900px) {
+  nav { padding: 18px 24px; } .nav-links { display: none; }
+  .hero { grid-template-columns: 1fr; padding: 100px 24px 60px; }
+  section { padding: 70px 24px; } .bg-inner { padding: 0 24px; }
+  .achieve-grid, .traits-grid, .pers-grid, .method-3 { grid-template-columns: 1fr; }
+  .method-2 { grid-template-columns: 1fr; }
+  .proj-card { grid-template-columns: 1fr; gap: 20px; }
+  .hobby-grid { grid-template-columns: repeat(2,1fr); }
+  .contact-wrap { margin: 0 24px 60px; padding: 48px 28px; }
+  footer { flex-direction: column; gap: 10px; text-align: center; }
+}
+</style>
+</head>
+<body>
+ 
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+ 
+<nav id="nav">
+  <a href="#" class="nav-logo">Nora D.</a>
+  <ul class="nav-links">
+    <li><a href="#work">Work</a></li>
+    <li><a href="#methodology">方法论</a></li>
+    <li><a href="#education">经历</a></li>
+    <li><a href="#personality">性格</a></li>
+    <li><a href="#contact">联系</a></li>
+  </ul>
+</nav>
+ 
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-left">
+    <div class="hero-badge"><div class="badge-dot"></div>云平台产品工程师 · 亚太战区</div>
+    <h1 class="hero-name">Nora <em>Dong</em></h1>
+    <div class="hero-cn">董 &nbsp; 宁</div>
+    <p class="hero-desc">连接客户需求、产品逻辑与技术实现的桥梁。以工程师的精准做产品人的决策——让技术真正服务于国际市场的长期增长。</p>
+    <div class="hero-stats">
+      <div>
+        <div class="stat-num">25<sup>+</sup></div>
+        <div class="stat-label">需求文档交付</div>
+      </div>
+      <div>
+        <div class="stat-num">100<sup>%</sup></div>
+        <div class="stat-label">按时交付率</div>
+      </div>
+      <div>
+        <div class="stat-num">4</div>
+        <div class="stat-label">大版本主导</div>
+      </div>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="id-panel">
+      <div class="id-label">Identity</div>
+      <div class="id-chips">
+        <div class="id-chip">♉ 金牛座</div>
+        <div class="id-chip">◈ ENFP</div>
+        <div class="id-chip">🎓 电子信息硕士</div>
+        <div class="id-chip">🏫 暨南大学</div>
+        <div class="id-chip">🌏 海外产品</div>
+        <div class="id-chip">✦ 25岁</div>
+      </div>
+      <div class="id-divider"></div>
+      <div class="id-quote">"不仅是'完成任务'，而是对交付结果负责；将需求 → 技术 → 体验贯通，驱动平台持续成长。"</div>
+    </div>
+  </div>
+</div>
+ 
+<!-- WORK ACHIEVEMENTS -->
+<div class="bg-white" id="work">
+  <div class="bg-inner">
+    <div class="eyebrow reveal"><div class="eyebrow-line"></div>工作成果</div>
+    <h2 class="section-title reveal">试用期核心成果</h2>
+    <div class="achieve-grid">
+      <div class="achieve-card reveal">
+        <div class="ac-top ac-i"></div>
+        <div class="ac-tag t-i">需求管理</div>
+        <div class="ac-num">25 <span class="ac-unit">份</span></div>
+        <div class="ac-label">需求文档，完成率 100%</div>
+        <div class="ac-desc">处理30+市场需求，含5个基线版本需求、3个紧急需求、2个独立项目需求，1个中心立项级项目。</div>
+      </div>
+      <div class="achieve-card reveal">
+        <div class="ac-top ac-r"></div>
+        <div class="ac-tag t-r">版本管理</div>
+        <div class="ac-num">4 <span class="ac-unit">个</span></div>
+        <div class="ac-label">大版本迭代全周期负责</div>
+        <div class="ac-desc">统筹 FT Cloud V3.17.10 ~ V3.18.0 四个月度版本全生命周期，需求准时交付率 100%，节奏清晰节点可控。</div>
+      </div>
+      <div class="achieve-card reveal">
+        <div class="ac-top ac-a"></div>
+        <div class="ac-tag t-a">对外输出</div>
+        <div class="ac-num">6 <span class="ac-unit">份</span></div>
+        <div class="ac-label">Release Note + 操作手册 2 份</div>
+        <div class="ac-desc">同步中英文版本，保障海外战区信息准确统一，赋能亚太前线团队高效服务国际客户。</div>
+      </div>
+    </div>
+  </div>
+</div>
+ 
+<!-- PROJECTS -->
+<section>
+  <div class="eyebrow reveal"><div class="eyebrow-line"></div>业务专项</div>
+  <h2 class="section-title reveal">三大核心项目</h2>
+  <div class="proj-list">
+    <div class="proj-card reveal">
+      <div>
+        <div class="proj-num">01</div>
+        <div class="proj-tag t-i">平台架构</div>
+      </div>
+      <div>
+        <div class="proj-title">多应用合并 · 统一平台入口</div>
+        <div class="proj-desc">打破 FT/PT/SBS 多业务孤岛，重构"九宫格"为应用选择器，将用户配置、权限中心等6大系统级配置从业务层抽离，建立 General Setting 统一管控，消除配置冲突。跨职能协调 FT、中台、人因、运维等部门完成专项评审。</div>
+        <div class="proj-pills">
+          <div class="proj-pill">跨职能需求对齐</div>
+          <div class="proj-pill">导航入口重构</div>
+          <div class="proj-pill">系统设置分层</div>
+          <div class="proj-pill">标准底座建立</div>
+        </div>
+      </div>
+      <div class="proj-outcome">
+        <div class="out-label">核心成果</div>
+        <div class="out-val" style="font-size:15px; line-height:1.6;">奠定 FT/PT/SBS<br>规模化合并底座</div>
+      </div>
+    </div>
+    <div class="proj-card reveal">
+      <div>
+        <div class="proj-num">02</div>
+        <div class="proj-tag t-r">客户定制</div>
+      </div>
+      <div>
+        <div class="proj-title">AddSecure · 配置化安全看板</div>
+        <div class="proj-desc">服务欧洲战略客户，覆盖逾 10,380 台付费车辆。重构安全评分体系，支持分数自定义与等级区间可视化；对标 Samsara、Wialon、Netradyne 竞品方向，打造模块化配置看板，输出原型与 PRD，已完成部署验证上线。</div>
+        <div class="proj-pills">
+          <div class="proj-pill">安全评分重构</div>
+          <div class="proj-pill">模块化看板</div>
+          <div class="proj-pill">竞品分析</div>
+          <div class="proj-pill">报警收藏功能</div>
+        </div>
+      </div>
+      <div class="proj-outcome">
+        <div class="out-label">影响规模</div>
+        <div class="out-val">10,380<span style="font-size:14px"> 台</span></div>
+      </div>
+    </div>
+    <div class="proj-card reveal">
+      <div>
+        <div class="proj-num">03</div>
+        <div class="proj-tag t-a">国际项目</div>
+      </div>
+      <div>
+        <div class="proj-title">日本歌乐 FMS · PC 端系统</div>
+        <div class="proj-desc">客户为日本最大商用车经销商，处理50+页全日语资料并结构化拆解30+关键需求；组织10+次评审与客户沟通会、参会时长15h+；逐项确认60+疑问点，独立输出57页 PC 原型与2.5万字深度 PRD，按时完成跨语言高质量交付。</div>
+        <div class="proj-pills">
+          <div class="proj-pill">全日语资料结构化</div>
+          <div class="proj-pill">PC原型 57页</div>
+          <div class="proj-pill">PRD 2.5万字</div>
+          <div class="proj-pill">60+疑问点闭环</div>
+        </div>
+      </div>
+      <div class="proj-outcome">
+        <div class="out-label">文档输出</div>
+        <div class="out-val">2.5<span style="font-size:14px">万字</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+ 
+<!-- TRAITS -->
+<div class="bg-white">
+  <div class="bg-inner">
+    <div class="eyebrow reveal"><div class="eyebrow-line"></div>工作特质</div>
+    <h2 class="section-title reveal">从实战中淬炼的<br>六个工作特质</h2>
+    <div class="traits-grid">
+      <div class="trait-card reveal">
+        <div class="t-icon ic-i">🎯</div>
+        <div class="trait-title">结果负责，端到端交付</div>
+        <div class="trait-desc">试用期25份需求100%准时交付。不以"完成任务"为终点，而以"交付结果"为标准，从需求到上线全程跟进。</div>
+      </div>
+      <div class="trait-card reveal">
+        <div class="t-icon ic-r">🌐</div>
+        <div class="trait-title">跨文化理解，海外视野</div>
+        <div class="trait-desc">独立负责亚太及欧洲市场需求，全日语资料跨语言结构化，与海外 SE 持续闭环客户问题，具备真实国际项目经验。</div>
+      </div>
+      <div class="trait-card reveal">
+        <div class="t-icon ic-a">🔧</div>
+        <div class="trait-title">工程思维，系统视角</div>
+        <div class="trait-desc">理工科背景驱动系统化设计，超越单点功能实现，从架构演进角度设计可复用、可扩展的产品方案与底座。</div>
+      </div>
+      <div class="trait-card reveal">
+        <div class="t-icon ic-s">🤝</div>
+        <div class="trait-title">强协同，推动跨团队落地</div>
+        <div class="trait-desc">协调研发、中台、运维、设备等多职能，通过"需求-研发-测试"反馈机制降低内耗，确保执行方向高度一致。</div>
+      </div>
+      <div class="trait-card reveal">
+        <div class="t-icon ic-i">💬</div>
+        <div class="trait-title">主动沟通，缩短确认链路</div>
+        <div class="trait-desc">结构化梳理关键疑问，主动推进需求确认；日本项目中10+次会议、60+疑问点逐条闭环，大幅压缩需求确认周期。</div>
+      </div>
+      <div class="trait-card reveal">
+        <div class="t-icon ic-r">🚀</div>
+        <div class="trait-title">AI 赋能，持续提效</div>
+        <div class="trait-desc">将 ChatGPT、Gamma、NotebookLM 融入日常工作流，用于方案打磨与文档产出，以效率杠杆支撑更高质量的交付。</div>
+      </div>
+    </div>
+  </div>
+</div>
+ 
+<!-- METHODOLOGY -->
+<section id="methodology">
+  <div class="eyebrow reveal"><div class="eyebrow-line"></div>个人方法论</div>
+  <h2 class="section-title reveal">工作中形成的<br>五套方法框架</h2>
+  <div class="method-3 reveal">
+    <div class="method-card">
+      <div class="m-num">01</div>
+      <div class="m-title">四象限决策法</div>
+      <div class="m-desc">将需求按「价值 vs. 成本/风险」划分，优先匹配产品规划；不符合规划的需求谨慎合并，避免资源分散稀释。</div>
+    </div>
+    <div class="method-card">
+      <div class="m-num">02</div>
+      <div class="m-title">客户价值导向</div>
+      <div class="m-desc">在"成就客户"前提下平衡短期交付与长期平台能力建设，确保投入产出最优，不以局部满足替代整体价值。</div>
+    </div>
+    <div class="method-card">
+      <div class="m-num">03</div>
+      <div class="m-title">结构化思考与主动沟通</div>
+      <div class="m-desc">多思考、梳理关键点，敢于提出高质量问题；主动沟通缩短需求确认链路，以精准问题替代低效往复。</div>
+    </div>
+  </div>
+  <div class="method-2 reveal">
+    <div class="method-card">
+      <div class="m-num">04</div>
+      <div class="m-title">主人翁意识 · 端到端责任</div>
+      <div class="m-desc">从需求到落地全流程跟进：推动方案、协调资源、监督交付、复盘优化——以主人翁精神驱动高质量需求落地。</div>
+    </div>
+    <div class="method-card">
+      <div class="m-num">05</div>
+      <div class="m-title">AI 工具赋能提效</div>
+      <div class="m-desc">系统性引入 AI 辅助工具用于需求分析、文档产出与方案打磨，以效率杠杆放大个人交付质量与产出密度。</div>
+    </div>
+  </div>
+</section>
+ 
+<!-- EDUCATION -->
+<div class="bg-white" id="education">
+  <div class="bg-inner">
+    <div class="eyebrow reveal"><div class="eyebrow-line"></div>成长经历</div>
+    <h2 class="section-title reveal">每一步，都算数</h2>
+    <div class="timeline">
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-period">2025 — 至今</div>
+        <div class="tl-degree">产品工程师 · 云平台产品部</div>
+        <div class="tl-school">Streamax 智明 · FT Cloud 团队</div>
+        <div class="tl-desc">独立负责亚太及中东战区市场需求，主导4个大版本迭代，统筹多应用合并、AddSecure欧洲定制化看板、日本歌乐FMS PC端三大业务专项，实现试用期25份需求100%准时交付。赴重庆研发现场交流学习，深入理解平台全链路运作逻辑。</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-period">2022 — 2025</div>
+        <div class="tl-degree">电子信息 · 工程硕士</div>
+        <div class="tl-school">暨南大学 · 信息科学技术学院</div>
+        <div class="tl-desc">深耕数据处理与系统设计，培养严谨的科研与工程思维。期间对产品设计产生浓厚兴趣，系统研习用户研究与产品方法论，为转型产品岗积蓄跨学科能量。</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-period">2018 — 2022</div>
+        <div class="tl-degree">计算机科学与技术 · 本科</div>
+        <div class="tl-school">暨南大学 · 信息科学技术学院</div>
+        <div class="tl-desc">系统习得算法、数据结构与工程实践，建立扎实技术底座。这份理工背景让我在产品工作中能与研发深度协作，以工程思维设计更具系统性、可扩展性的产品方案。</div>
+      </div>
+    </div>
+  </div>
+</div>
+ 
+<!-- PERSONALITY -->
+<section id="personality">
+  <div class="eyebrow reveal"><div class="eyebrow-line"></div>性格与特质</div>
+  <h2 class="section-title reveal">了解真实的我</h2>
+  <div class="pers-grid reveal">
+    <div class="pers-card">
+      <div class="pers-bg">ENFP</div>
+      <div class="pers-eye">MBTI · 人格类型</div>
+      <div class="pers-title" style="color:var(--indigo);">ENFP</div>
+      <div class="pers-sub">竞选者 · The Campaigner</div>
+      <div class="pers-desc">天生对可能性充满热情，善于发现事物间的关联。共情力强，乐于与人连接，用感染力激励身边的人。在混乱中看见秩序——这让我既能发散思维，又能聚焦推进。</div>
+    </div>
+    <div class="pers-card">
+      <div class="pers-bg">♉</div>
+      <div class="pers-eye">星座 · Zodiac</div>
+      <div class="pers-title" style="color:var(--amber);">金牛座</div>
+      <div class="pers-sub">Taurus · 稳定 · 执行 · 可靠</div>
+      <div class="pers-desc">金牛赋予我踏实与执行力——承诺过的事情全力以赴。ENFP 的创意火花 × 金牛的落地精准，既能构建宏大愿景，又能一步一步把它变成现实。</div>
+    </div>
+  </div>
+  <div class="char-grid reveal">
+    <div class="char-tag">✨ 充满热情</div>
+    <div class="char-tag">🎨 创意思维</div>
+    <div class="char-tag">💬 善于表达</div>
+    <div class="char-tag">🤗 共情力强</div>
+    <div class="char-tag">🌱 持续成长</div>
+    <div class="char-tag">🎯 结果导向</div>
+    <div class="char-tag">🔮 好奇心强</div>
+    <div class="char-tag">💪 执行踏实</div>
+    <div class="char-tag">🌊 适应力强</div>
+    <div class="char-tag">🧩 系统思维</div>
+  </div>
+</section>
+ 
+<!-- HOBBIES -->
+<div class="bg-white">
+  <div class="bg-inner">
+    <div class="eyebrow reveal"><div class="eyebrow-line"></div>兴趣爱好</div>
+    <h2 class="section-title reveal">下班后的我</h2>
+    <div class="hobby-grid reveal">
+      <div class="hobby-card"><div class="hb-emoji">✈️</div><div class="hb-label">旅行探索</div></div>
+      <div class="hobby-card"><div class="hb-emoji">📚</div><div class="hb-label">阅读思考</div></div>
+      <div class="hobby-card"><div class="hb-emoji">🎵</div><div class="hb-label">音乐欣赏</div></div>
+      <div class="hobby-card"><div class="hb-emoji">☕</div><div class="hb-label">咖啡探店</div></div>
+      <div class="hobby-card"><div class="hb-emoji">🏃</div><div class="hb-label">跑步健身</div></div>
+      <div class="hobby-card"><div class="hb-emoji">🍳</div><div class="hb-label">烹饪美食</div></div>
+      <div class="hobby-card"><div class="hb-emoji">📷</div><div class="hb-label">摄影记录</div></div>
+      <div class="hobby-card"><div class="hb-emoji">✍️</div><div class="hb-label">写作输出</div></div>
+    </div>
+  </div>
+</div>
+ 
+<!-- CONTACT -->
+<div id="contact">
+  <div class="contact-wrap">
+    <div class="c-inner">
+      <div class="c-label">Get in Touch</div>
+      <div class="c-title">Let's Connect.</div>
+      <div class="c-sub">期待与有趣的灵魂相遇 · 合作、交流或一杯咖啡都欢迎</div>
+      <button class="c-btn" onclick="copyEmail()">
+        <span>✉</span><span id="btn-text">nora.dong@email.com</span>
+      </button>
+    </div>
+  </div>
+</div>
+ 
+<footer>
+  <span>© 2026 Nora Dong · 董宁</span>
+  <span style="font-family:'Playfair Display',serif;font-style:italic;font-size:15px;">海外产品 · ENFP · ♉</span>
+  <span>Designed with ♥</span>
+</footer>
+ 
+<script>
+const cursor = document.getElementById('cursor');
+const ring = document.getElementById('cursorRing');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove', e => {
+  mx=e.clientX; my=e.clientY;
+  cursor.style.transform=`translate(${mx-4.5}px,${my-4.5}px)`;
+});
+(function anim(){
+  rx+=(mx-rx)*.13; ry+=(my-ry)*.13;
+  ring.style.transform=`translate(${rx-17}px,${ry-17}px)`;
+  requestAnimationFrame(anim);
+})();
+document.querySelectorAll('a,button,.achieve-card,.trait-card,.proj-card,.hobby-card,.char-tag,.id-chip,.method-card,.pers-card').forEach(el=>{
+  el.addEventListener('mouseenter',()=>{ ring.style.width='52px';ring.style.height='52px';ring.style.borderColor='rgba(74,92,240,.5)'; });
+  el.addEventListener('mouseleave',()=>{ ring.style.width='34px';ring.style.height='34px';ring.style.borderColor='rgba(74,92,240,.35)'; });
+});
+ 
+const nav=document.getElementById('nav');
+window.addEventListener('scroll',()=>{ nav.classList.toggle('scrolled',window.scrollY>40); });
+ 
+const io=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{ if(e.isIntersecting) e.target.classList.add('visible'); });
+},{threshold:.1});
+document.querySelectorAll('.reveal,.tl-item').forEach(el=>io.observe(el));
+ 
+const sections=document.querySelectorAll('[id]');
+const navAs=document.querySelectorAll('.nav-links a');
+window.addEventListener('scroll',()=>{
+  let cur='';
+  sections.forEach(s=>{ if(window.scrollY>=s.offsetTop-160) cur=s.id; });
+  navAs.forEach(a=>{ a.classList.toggle('active',a.getAttribute('href')==='#'+cur); });
+});
+ 
+function copyEmail(){
+  const t=document.getElementById('btn-text');
+  navigator.clipboard.writeText('nora.dong@email.com').then(()=>{
+    t.textContent='已复制 ✓';
+    setTimeout(()=>{ t.textContent='nora.dong@email.com'; },2000);
+  });
+}
+</script>
+</body>
+</html>
+ 
